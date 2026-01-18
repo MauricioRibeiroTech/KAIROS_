@@ -1,70 +1,22 @@
-# Core dependencies
+# Essenciais para o KAIROS
 streamlit
 pandas
-numpy
-
-# Visualization
+numpy>=1.26.0
+scipy
 plotly
+
+# Visualização e Estilo
 matplotlib
 seaborn
+Pillow
 
-# Network analysis
+# Análise de Grafos e Similaridade
 networkx
-scipy
-
-# Machine learning & similarity
 scikit-learn
 
-# Image processing
-Pillow
-opencv-python-headless
-
-# Data processing
+# Processamento de Dados (Excel e PDF)
 openpyxl
-xlrd
+xlsxwriter
 
-# Utilities
+# Utilidades
 python-dotenv
-tqdm
-joblib
-
-# NetworkX community detection (optional but recommended)
-python-louvain6
-
-# Alternative community detection
-cdlib
-
-# For exporting to Excel with formatting
-xlsxwriter==3.1.9
-
-# For PDF generation (optional)
-reportlab
-fpdf2
-
-# For progress bars in Streamlit
-streamlit-extras
-
-# For caching and performance
-cachetools
-
-# For date/time handling
-python-dateutil
-pytz
-
-# For data validation
-pydantic
-# For colored terminal output (logs)
-colorama
-
-# For typing support
-typing-extensions
-
-# For HTTP requests (if needed for APIs)
-requests
-
-# For async operations
-aiohttp
-asyncio
-
-# For data compression
-zstandard
