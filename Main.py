@@ -365,14 +365,14 @@ def plot_theta_distribution_dark(student_results):
         student_results, 
         x='Proficiencia (θ)', 
         nbins=20,
-        title='📈 Distribuicao das Proficiencias',
-        labels={'Proficiencia (θ)': 'Proficiencia (θ)', 'count': 'Numero de Alunos'},
+        title='📈 Distribuição das Proficiências',
+        labels={'Proficiencia (θ)': 'Proficiência (θ)', 'count': 'Número de Alunos'},
         color_discrete_sequence=['#8B5CF6']
     )
     
     mean_theta = student_results['Proficiencia (θ)'].mean()
     fig.add_vline(x=mean_theta, line_dash="dash", line_color="#10B981", 
-                  annotation_text=f"Media: {mean_theta:.2f}", 
+                  annotation_text=f"Média: {mean_theta:.2f}", 
                   annotation_position="top right")
     
     fig.update_layout(
@@ -396,12 +396,12 @@ def plot_item_analysis_dark(item_results):
         size='% Acerto',
         color='Correlacao Bisserial',
         hover_name='Questao',
-        title='🎯 Analise Multidimensional das Questoes',
+        title='🎯 Análise Multidimensional das Questões',
         labels={
             'Dificuldade (b)': 'Dificuldade (b) →',
-            'Discriminacao (a)': 'Discriminacao (a) ↑',
+            'Discriminacao (a)': 'Discriminação (a) ↑',
             '% Acerto': 'Taxa de Acerto (%)',
-            'Correlacao Bisserial': 'Correlacao'
+            'Correlacao Bisserial': 'Correlação'
         },
         color_continuous_scale='Viridis'
     )
@@ -429,7 +429,7 @@ def plot_student_progress_dark(detailed_df, aluno_nome):
     fig.add_trace(go.Bar(
         x=aluno_data['Questao'],
         y=aluno_data['Dificuldade_Questao'],
-        name='Dificuldade da Questao',
+        name='Dificuldade da Questão',
         marker_color='#8B5CF6',
         opacity=0.7,
         yaxis='y2'
@@ -441,14 +441,14 @@ def plot_student_progress_dark(detailed_df, aluno_nome):
         y=[1] * len(aluno_data),
         marker_color=colors,
         name='Desempenho',
-        hovertemplate="<b>Questao %{x}</b><br>" +
+        hovertemplate="<b>Questão %{x}</b><br>" +
                      "Status: %{customdata}<extra></extra>",
         customdata=['✓ Acertou' if a == 1 else '✗ Errou' for a in aluno_data['Acerto']]
     ))
     
     fig.update_layout(
         title=f'📊 Desempenho Individual: {aluno_nome}',
-        xaxis_title='Questoes',
+        xaxis_title='Questões',
         yaxis_title='',
         yaxis2=dict(
             title='Dificuldade',
@@ -472,22 +472,22 @@ def plot_student_progress_dark(detailed_df, aluno_nome):
     return fig
 
 def plot_turma_panorama_dark(student_results, item_results):
-    """Grafico de panorama geral da turma"""
+    """Gráfico de panorama geral da turma"""
     
     fig = make_subplots(
         rows=2, cols=2,
-        subplot_titles=('📊 Distribuicao da Proficiencia', '📈 Dificuldade por Questao',
+        subplot_titles=('📊 Distribuição da Proficiência', '📈 Dificuldade por Questão',
                        '🎯 Taxa de Acerto da Turma', '🏆 Top 5 Melhores Desempenhos'),
         vertical_spacing=0.15,
         horizontal_spacing=0.15
     )
     
-    # Grafico 1: Distribuicao da proficiencia
+    # Gráfico 1: Distribuição da proficiência
     fig.add_trace(
         go.Histogram(
             x=student_results['Proficiencia (θ)'],
             marker_color='#8B5CF6',
-            name='Proficiencia',
+            name='Proficiência',
             nbinsx=15
         ),
         row=1, col=1
@@ -495,30 +495,30 @@ def plot_turma_panorama_dark(student_results, item_results):
     
     mean_theta = student_results['Proficiencia (θ)'].mean()
     fig.add_vline(x=mean_theta, line_dash="dash", line_color="#10B981", 
-                  annotation_text=f"Media: {mean_theta:.2f}", 
+                  annotation_text=f"Média: {mean_theta:.2f}", 
                   annotation_position="top right",
                   row=1, col=1)
     
-    # Grafico 2: Dificuldade por questao
+    # Gráfico 2: Dificuldade por questão
     fig.add_trace(
         go.Bar(
             x=item_results['Questao'],
             y=item_results['Dificuldade (b)'],
             marker_color='#8B5CF6',
             name='Dificuldade',
-            hovertemplate='Questao: %{x}<br>Dificuldade: %{y:.2f}<extra></extra>'
+            hovertemplate='Questão: %{x}<br>Dificuldade: %{y:.2f}<extra></extra>'
         ),
         row=1, col=2
     )
     
-    # Linha de media da dificuldade
+    # Linha de média da dificuldade
     mean_diff = item_results['Dificuldade (b)'].mean()
     fig.add_hline(y=mean_diff, line_dash="dash", line_color="#F59E0B",
-                 annotation_text=f"Media: {mean_diff:.2f}",
+                 annotation_text=f"Média: {mean_diff:.2f}",
                  annotation_position="top right",
                  row=1, col=2)
     
-    # Grafico 3: Taxa de acerto da turma
+    # Gráfico 3: Taxa de acerto da turma
     fig.add_trace(
         go.Scatter(
             x=item_results['Questao'],
@@ -527,18 +527,18 @@ def plot_turma_panorama_dark(student_results, item_results):
             line=dict(color='#10B981', width=3),
             marker=dict(size=8, color='#10B981'),
             name='% Acerto',
-            hovertemplate='Questao: %{x}<br>Acerto: %{y:.1f}%<extra></extra>'
+            hovertemplate='Questão: %{x}<br>Acerto: %{y:.1f}%<extra></extra>'
         ),
         row=2, col=1
     )
     
-    # Linha de 50% para referencia
+    # Linha de 50% para referência
     fig.add_hline(y=50, line_dash="dot", line_color="#94A3B8",
                  annotation_text="Meta 50%",
                  annotation_position="bottom right",
                  row=2, col=1)
     
-    # Grafico 4: Top 5 melhores desempenhos
+    # Gráfico 4: Top 5 melhores desempenhos
     top_5 = student_results.nlargest(5, 'Proficiencia (θ)')
     fig.add_trace(
         go.Bar(
@@ -546,7 +546,7 @@ def plot_turma_panorama_dark(student_results, item_results):
             y=top_5['Proficiencia (θ)'],
             marker_color='#8B5CF6',
             name='Top 5',
-            hovertemplate='%{x}<br>Proficiencia: %{y:.2f}<extra></extra>'
+            hovertemplate='%{x}<br>Proficiência: %{y:.2f}<extra></extra>'
         ),
         row=2, col=2
     )
@@ -569,7 +569,7 @@ def plot_turma_panorama_dark(student_results, item_results):
     fig.update_xaxes(gridcolor='rgba(139, 92, 246, 0.1)', row=2, col=2)
     fig.update_yaxes(gridcolor='rgba(139, 92, 246, 0.1)', row=2, col=2)
     
-    # Rotacionar labels do eixo X nos graficos de barras
+    # Rotacionar labels do eixo X nos gráficos de barras
     fig.update_xaxes(tickangle=45, row=1, col=2)
     fig.update_xaxes(tickangle=45, row=2, col=2)
     
@@ -577,19 +577,19 @@ def plot_turma_panorama_dark(student_results, item_results):
 
 def get_top_tutors(student_results, n=10):
     """Identifica os melhores alunos para serem tutores"""
-    # Alunos com proficiencia alta (θ > 1.0) e bom percentual de acerto (> 70%)
+    # Alunos com proficiência alta (θ > 1.0) e bom percentual de acerto (> 70%)
     potential_tutors = student_results[
         (student_results['Proficiencia (θ)'] > 1.0) & 
         (student_results['Percentual de Acerto'] > 70)
     ].copy()
     
     if len(potential_tutors) == 0:
-        # Se nao houver alunos com θ > 1.0, pegar os top n por proficiencia
+        # Se não houver alunos com θ > 1.0, pegar os top n por proficiência
         potential_tutors = student_results.nlargest(n, 'Proficiencia (θ)').copy()
     
     # Verificar se há dados suficientes para calcular o score
     if len(potential_tutors) > 0:
-        # Adicionar classificacao de qualidade do tutor
+        # Adicionar classificação de qualidade do tutor
         # Prevenir divisão por zero se todos os valores forem iguais
         theta_min = potential_tutors['Proficiencia (θ)'].min()
         theta_max = potential_tutors['Proficiencia (θ)'].max()
@@ -614,53 +614,459 @@ def get_top_tutors(student_results, n=10):
         # Se não houver potenciais tutores, criar DataFrame vazio com colunas
         potential_tutors = pd.DataFrame(columns=student_results.columns.tolist() + ['Score_Tutor'])
     
-    # Adicionar posicao
+    # Adicionar posição
     if len(potential_tutors) > 0:
         potential_tutors['Posicao'] = range(1, len(potential_tutors) + 1)
     
     return potential_tutors.head(n)
 
-# --- Funcao para criar relatorio em texto simples (TXT) ---
+# --- Nova Função: Criar Relatório HTML ---
+def create_html_report(student_results, item_results, detailed_df, aluno_selecionado=None):
+    """Cria um relatório completo em HTML para visualização em grupo de professores"""
+    
+    # Estilos CSS para o relatório HTML
+    html_css = """
+    <style>
+        :root {
+            --primary-purple: #8B5CF6;
+            --secondary-purple: #A78BFA;
+            --dark-bg: #0F172A;
+            --darker-bg: #1E293B;
+            --card-bg: #334155;
+            --text-light: #F1F5F9;
+            --text-muted: #94A3B8;
+            --success-green: #10B981;
+            --warning-orange: #F59E0B;
+            --danger-red: #EF4444;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--darker-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--primary-purple);
+        }
+        
+        .header h1 {
+            color: var(--primary-purple);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+        
+        .section-title {
+            color: var(--secondary-purple);
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .metric-card {
+            background: linear-gradient(145deg, var(--card-bg), var(--darker-bg));
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid var(--primary-purple);
+        }
+        
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--primary-purple);
+            margin: 10px 0;
+        }
+        
+        .metric-label {
+            color: var(--text-muted);
+            font-size: 0.9em;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: var(--darker-bg);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th {
+            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+        }
+        
+        tr:nth-child(even) {
+            background-color: rgba(139, 92, 246, 0.05);
+        }
+        
+        tr:hover {
+            background-color: rgba(139, 92, 246, 0.1);
+        }
+        
+        .status-box {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid;
+        }
+        
+        .status-success {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left-color: var(--success-green);
+        }
+        
+        .status-warning {
+            background-color: rgba(245, 158, 11, 0.1);
+            border-left-color: var(--warning-orange);
+        }
+        
+        .status-danger {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left-color: var(--danger-red);
+        }
+        
+        .tutor-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-purple), var(--secondary-purple));
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+            color: var(--text-muted);
+            font-size: 0.9em;
+        }
+    </style>
+    """
+    
+    # Iniciar construção do HTML
+    html_content = f"""
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Relatório KAIROS - {aluno_selecionado if aluno_selecionado else 'Turma Completa'}</title>
+        {html_css}
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>📊 KAIROS - Relatório de Análise</h1>
+                <p style="color: var(--text-muted);">
+                    {aluno_selecionado if aluno_selecionado else 'Análise da Turma Completa'} | 
+                    Gerado em: {datetime.now().strftime('%d/%m/%Y %H:%M')}
+                </p>
+            </div>
+    """
+    
+    # Seção de Métricas Gerais
+    html_content += f"""
+            <div class="section">
+                <h2 class="section-title">📈 Métricas Gerais</h2>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Total de Alunos</div>
+                        <div class="metric-value">{len(student_results)}</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Total de Questões</div>
+                        <div class="metric-value">{len(item_results)}</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Proficiência Média</div>
+                        <div class="metric-value">{student_results['Proficiencia (θ)'].mean():.2f}</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Taxa de Acerto</div>
+                        <div class="metric-value">{student_results['Percentual de Acerto'].mean():.1f}%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Confiabilidade</div>
+                        <div class="metric-value">{calculate_reliability(item_results):.3f}</div>
+                    </div>
+                </div>
+            </div>
+    """
+    
+    # Seção de Análise Individual (se aluno selecionado)
+    if aluno_selecionado:
+        aluno_data = student_results[student_results['Aluno'] == aluno_selecionado].iloc[0]
+        rank = list(student_results.sort_values('Proficiencia (θ)', ascending=False)['Aluno']).index(aluno_selecionado) + 1
+        
+        html_content += f"""
+            <div class="section">
+                <h2 class="section-title">👨‍🎓 Análise Individual: {aluno_selecionado}</h2>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">Proficiência (θ)</div>
+                        <div class="metric-value">{aluno_data['Proficiencia (θ)']:.2f}</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Pontuação</div>
+                        <div class="metric-value">{int(aluno_data['Pontuacao Total'])}/{len(item_results)}</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">% de Acerto</div>
+                        <div class="metric-value">{aluno_data['Percentual de Acerto']:.1f}%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Posição no Ranking</div>
+                        <div class="metric-value">{rank}º/{len(student_results)}</div>
+                    </div>
+                </div>
+        """
+        
+        # Interpretação da proficiência
+        theta = aluno_data['Proficiencia (θ)']
+        if theta < -1.5:
+            status_class = "status-danger"
+            status_text = "Proficiência MUITO BAIXA - Intervenção necessária"
+        elif theta < -0.5:
+            status_class = "status-warning"
+            status_text = "Proficiência BAIXA - Reforço recomendado"
+        elif theta < 0.5:
+            status_class = "status-success"
+            status_text = "Proficiência MÉDIA - Desempenho adequado"
+        elif theta < 1.5:
+            status_class = "status-success"
+            status_text = "Proficiência ALTA - Bom desempenho"
+        else:
+            status_class = "status-success"
+            status_text = "Proficiência MUITO ALTA - Excelente desempenho"
+        
+        html_content += f"""
+                <div class="{status_class} status-box">
+                    <strong>{status_text}</strong>
+                </div>
+        """
+        
+        # Verificar se é tutor potencial
+        top_tutors = get_top_tutors(student_results, 10)
+        if aluno_selecionado in top_tutors['Aluno'].values:
+            tutor_info = top_tutors[top_tutors['Aluno'] == aluno_selecionado].iloc[0]
+            html_content += f"""
+                <div style="margin-top: 20px;">
+                    <span class="tutor-badge">👨‍🏫 POTENCIAL TUTOR</span>
+                    <p>Score como tutor: {tutor_info['Score_Tutor']:.2f} | Posição entre tutores: {tutor_info['Posicao']}º</p>
+                    <p><strong>Sugestão:</strong> Este aluno pode auxiliar 2-3 colegas com dificuldades</p>
+                </div>
+            """
+        
+        html_content += "</div>"
+    
+    # Seção de Ranking de Alunos
+    html_content += """
+            <div class="section">
+                <h2 class="section-title">🏆 Ranking de Alunos</h2>
+    """
+    
+    ranking_df = student_results.sort_values('Proficiencia (θ)', ascending=False).head(15)
+    ranking_df['Posicao'] = range(1, len(ranking_df) + 1)
+    
+    html_content += ranking_df[['Posicao', 'Aluno', 'Proficiencia (θ)', 'Percentual de Acerto']].to_html(
+        index=False,
+        classes='dataframe',
+        border=0,
+        float_format=lambda x: f'{x:.2f}' if isinstance(x, float) else x
+    ).replace('class="dataframe"', '')
+    
+    html_content += "</div>"
+    
+    # Seção de Top Tutores
+    top_tutors = get_top_tutors(student_results, 10)
+    if len(top_tutors) > 0:
+        html_content += """
+            <div class="section">
+                <h2 class="section-title">👨‍🏫 Top 10 Tutores de Colegas</h2>
+        """
+        
+        html_content += top_tutors[['Posicao', 'Aluno', 'Proficiencia (θ)', 'Percentual de Acerto', 'Score_Tutor']].to_html(
+            index=False,
+            classes='dataframe',
+            border=0,
+            float_format=lambda x: f'{x:.3f}' if isinstance(x, float) else x
+        ).replace('class="dataframe"', '')
+        
+        html_content += "</div>"
+    
+    # Seção de Análise das Questões
+    html_content += """
+            <div class="section">
+                <h2 class="section-title">📝 Análise das Questões</h2>
+    """
+    
+    # Identificar questões problemáticas
+    problematic_items = item_results[
+        (item_results['Discriminacao (a)'] < 0.3) | 
+        (item_results['Correlacao Bisserial'] < 0.1) |
+        (item_results['% Acerto'] < 20) |
+        (item_results['% Acerto'] > 90)
+    ]
+    
+    if len(problematic_items) > 0:
+        html_content += f"""
+            <div class="status-warning status-box">
+                <strong>⚠️ {len(problematic_items)} Questões Requerem Atenção:</strong>
+                <ul>
+        """
+        
+        for _, item in problematic_items.iterrows():
+            issues = []
+            if item['Discriminacao (a)'] < 0.3:
+                issues.append("baixa discriminação")
+            if item['Correlacao Bisserial'] < 0.1:
+                issues.append("baixa correlação")
+            if item['% Acerto'] < 20:
+                issues.append("muito difícil")
+            if item['% Acerto'] > 90:
+                issues.append("muito fácil")
+            
+            html_content += f"""
+                    <li><strong>{item['Questao']}:</strong> {', '.join(issues)} (Dificuldade: {item['Dificuldade (b)']:.2f}, Acerto: {item['% Acerto']:.1f}%)</li>
+            """
+        
+        html_content += """
+                </ul>
+            </div>
+        """
+    
+    html_content += item_results[['Questao', 'Dificuldade (b)', 'Discriminacao (a)', '% Acerto', 'Correlacao Bisserial']].to_html(
+        index=False,
+        classes='dataframe',
+        border=0,
+        float_format=lambda x: f'{x:.2f}' if isinstance(x, float) else x
+    ).replace('class="dataframe"', '')
+    
+    html_content += "</div>"
+    
+    # Seção de Recomendações Pedagógicas
+    html_content += """
+            <div class="section">
+                <h2 class="section-title">🎯 Recomendações Pedagógicas</h2>
+                <div class="status-success status-box">
+                    <strong>📋 Plano de Ação Sugerido:</strong>
+                    <ol>
+                        <li>Revise questões com discriminação abaixo de 0.3</li>
+                        <li>Considere reformular questões muito fáceis (>90%) ou difíceis (<20%)</li>
+                        <li>Use questões com alta discriminação (>0.6) em futuras avaliações</li>
+                        <li>Organize grupos de tutoria com os 10 melhores alunos identificados</li>
+                        <li>Planeje atividades de reforço para alunos com θ < -0.5</li>
+                        <li>Proponha desafios adicionais para alunos com θ > 1.0</li>
+                        <li>Implemente monitoramento contínuo com relatórios mensais</li>
+                        <li>Use os dados para personalização do ensino</li>
+                    </ol>
+                </div>
+            </div>
+    """
+    
+    # Rodapé
+    html_content += f"""
+            <div class="footer">
+                <p>📊 Relatório gerado pelo Sistema KAIROS - Análise Psicométrica Avançada</p>
+                <p>© {datetime.now().year} - Para uso exclusivo da equipe pedagógica</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
+    
+    return html_content
+
+# --- Função para criar relatório em texto simples (TXT) ---
 def create_text_report(student_results, item_results, detailed_df, aluno_selecionado=None):
-    """Cria um relatorio em formato de texto simples (.TXT)"""
+    """Cria um relatório em formato de texto simples (.TXT)"""
     
     report = []
     report.append("=" * 70)
-    report.append("RELATORIO DE ANALISE - KAIROS")
+    report.append("RELATÓRIO DE ANÁLISE - KAIROS")
     report.append("=" * 70)
-    report.append(f"Data de geracao: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
+    report.append(f"Data de geração: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}")
     report.append(f"Total de alunos: {len(student_results)}")
-    report.append(f"Total de questoes: {len(item_results)}")
+    report.append(f"Total de questões: {len(item_results)}")
     report.append("")
     
-    # Explicacao dos parametros TRI
-    report.append("EXPLICACAO DOS PARAMETROS TRI")
+    # Explicação dos parâmetros TRI
+    report.append("EXPLICAÇÃO DOS PARÂMETROS TRI")
     report.append("-" * 40)
     report.append("1. DIFICULDADE (b):")
-    report.append("   - Valores negativos: Questao facil")
-    report.append("   - Valores proximos a 0: Dificuldade media")
-    report.append("   - Valores positivos: Questao dificil")
-    report.append("   - Faixa tipica: -3 a +3")
+    report.append("   - Valores negativos: Questão fácil")
+    report.append("   - Valores próximos a 0: Dificuldade média")
+    report.append("   - Valores positivos: Questão difícil")
+    report.append("   - Faixa típica: -3 a +3")
     report.append("")
-    report.append("2. DISCRIMINACAO (a):")
-    report.append("   - Valores abaixo de 0.3: Discriminacao baixa (questao problematica)")
-    report.append("   - Valores 0.3-0.6: Discriminacao moderada")
-    report.append("   - Valores acima de 0.6: Discriminacao alta (questao excelente)")
-    report.append("   - Valores negativos: Questao funciona inversamente (erro grave)")
+    report.append("2. DISCRIMINAÇÃO (a):")
+    report.append("   - Valores abaixo de 0.3: Discriminação baixa (questão problemática)")
+    report.append("   - Valores 0.3-0.6: Discriminação moderada")
+    report.append("   - Valores acima de 0.6: Discriminação alta (questão excelente)")
+    report.append("   - Valores negativos: Questão funciona inversamente (erro grave)")
     report.append("")
-    report.append("3. PROFICIENCIA (θ):")
-    report.append("   - Valores abaixo de -1: Proficiencia baixa")
-    report.append("   - Valores entre -1 e +1: Proficiencia media")
-    report.append("   - Valores acima de +1: Proficiencia alta")
-    report.append("   - Escala tipica: -4 a +4 (media 0, desvio padrao 1)")
+    report.append("3. PROFICIÊNCIA (θ):")
+    report.append("   - Valores abaixo de -1: Proficiência baixa")
+    report.append("   - Valores entre -1 e +1: Proficiência média")
+    report.append("   - Valores acima de +1: Proficiência alta")
+    report.append("   - Escala típica: -4 a +4 (média 0, desvio padrão 1)")
     report.append("")
     
     report.append("PANORAMA GERAL DA TURMA")
     report.append("-" * 40)
-    report.append(f"Proficiencia media (θ): {student_results['Proficiencia (θ)'].mean():.3f}")
-    report.append(f"Desvio padrao da proficiencia: {student_results['Proficiencia (θ)'].std():.3f}")
-    report.append(f"Taxa media de acerto: {student_results['Percentual de Acerto'].mean():.1f}%")
-    report.append(f"Dificuldade media das questoes (b): {item_results['Dificuldade (b)'].mean():.3f}")
+    report.append(f"Proficiência média (θ): {student_results['Proficiencia (θ)'].mean():.3f}")
+    report.append(f"Desvio padrão da proficiência: {student_results['Proficiencia (θ)'].std():.3f}")
+    report.append(f"Taxa média de acerto: {student_results['Percentual de Acerto'].mean():.1f}%")
+    report.append(f"Dificuldade média das questões (b): {item_results['Dificuldade (b)'].mean():.3f}")
     report.append(f"Confiabilidade do teste: {calculate_reliability(item_results):.3f}")
     report.append("")
     
@@ -669,71 +1075,71 @@ def create_text_report(student_results, item_results, detailed_df, aluno_selecio
     if len(top_tutors) > 0:
         report.append("TOP 10 TUTORES DE COLEGAS")
         report.append("-" * 40)
-        report.append("Pos | Aluno | Proficiencia (θ) | % Acerto | Score Tutor")
+        report.append("Pos | Aluno | Proficiência (θ) | % Acerto | Score Tutor")
         report.append("-" * 70)
         for idx, row in top_tutors.iterrows():
             report.append(f"{row['Posicao']:3d} | {row['Aluno'][:20]:20s} | {row['Proficiencia (θ)']:7.2f} | {row['Percentual de Acerto']:7.1f}% | {row['Score_Tutor']:6.2f}")
         report.append("")
-        report.append("SUGESTOES PARA GRUPOS DE TUTORIA:")
+        report.append("SUGESTÕES PARA GRUPOS DE TUTORIA:")
         report.append("1. Formar grupos de 3-4 alunos com 1 tutor")
-        report.append("2. Atribuir tutores para temas especificos de dificuldade")
-        report.append("3. Realizar sessoes semanais de reforco")
+        report.append("2. Atribuir tutores para temas específicos de dificuldade")
+        report.append("3. Realizar sessões semanais de reforço")
         report.append("")
     
     if aluno_selecionado:
         aluno_data = student_results[student_results['Aluno'] == aluno_selecionado].iloc[0]
         rank = list(student_results.sort_values('Proficiencia (θ)', ascending=False)['Aluno']).index(aluno_selecionado) + 1
         
-        report.append(f"ANALISE INDIVIDUAL - {aluno_selecionado}")
+        report.append(f"ANÁLISE INDIVIDUAL - {aluno_selecionado}")
         report.append("-" * 40)
-        report.append(f"Proficiencia (θ): {aluno_data['Proficiencia (θ)']:.3f}")
-        report.append(f"Pontuacao: {int(aluno_data['Pontuacao Total'])}/{len(item_results)}")
+        report.append(f"Proficiência (θ): {aluno_data['Proficiencia (θ)']:.3f}")
+        report.append(f"Pontuação: {int(aluno_data['Pontuacao Total'])}/{len(item_results)}")
         report.append(f"Percentual de acerto: {aluno_data['Percentual de Acerto']:.1f}%")
-        report.append(f"Posicao no ranking: {rank}º de {len(student_results)}")
+        report.append(f"Posição no ranking: {rank}º de {len(student_results)}")
         report.append("")
         
-        # Verificar se e tutor potencial
+        # Verificar se é tutor potencial
         if aluno_selecionado in top_tutors['Aluno'].values:
             tutor_info = top_tutors[top_tutors['Aluno'] == aluno_selecionado].iloc[0]
             report.append("🎓 **ESTE ALUNO PODE SER TUTOR DE COLEGAS**")
             report.append(f"   - Score como tutor: {tutor_info['Score_Tutor']:.2f}")
-            report.append(f"   - Posicao entre tutores: {tutor_info['Posicao']}º")
-            report.append("   - Sugestao: Atribuir para auxiliar 2-3 colegas com dificuldades")
+            report.append(f"   - Posição entre tutores: {tutor_info['Posicao']}º")
+            report.append("   - Sugestão: Atribuir para auxiliar 2-3 colegas com dificuldades")
             report.append("")
         
-        # Interpretacao da proficiencia do aluno
+        # Interpretação da proficiência do aluno
         theta = aluno_data['Proficiencia (θ)']
         if theta < -1.5:
-            report.append("INTERPRETACAO: Proficiencia MUITO BAIXA")
-            report.append("   * Necessita de intervencao pedagogica imediata")
+            report.append("INTERPRETAÇÃO: Proficiência MUITO BAIXA")
+            report.append("   * Necessita de intervenção pedagógica imediata")
             report.append("   * Dificuldades significativas na aprendizagem")
-            report.append("   * Sugestao: Acompanhamento individual com tutor")
+            report.append("   * Sugestão: Acompanhamento individual com tutor")
         elif theta < -0.5:
-            report.append("INTERPRETACAO: Proficiencia BAIXA")
-            report.append("   * Necessita de reforco escolar")
+            report.append("INTERPRETAÇÃO: Proficiência BAIXA")
+            report.append("   * Necessita de reforço escolar")
             report.append("   * Recomenda-se atendimento individualizado")
-            report.append("   * Sugestao: Participar de grupos de estudo com tutores")
+            report.append("   * Sugestão: Participar de grupos de estudo com tutores")
         elif theta < 0.5:
-            report.append("INTERPRETACAO: Proficiencia MEDIA")
-            report.append("   * Desempenho adequado para o nivel escolar")
+            report.append("INTERPRETAÇÃO: Proficiência MÉDIA")
+            report.append("   * Desempenho adequado para o nível escolar")
             report.append("   * Manter ritmo de estudos atual")
-            report.append("   * Sugestao: Praticar questoes de maior dificuldade")
+            report.append("   * Sugestão: Praticar questões de maior dificuldade")
         elif theta < 1.5:
-            report.append("INTERPRETACAO: Proficiencia ALTA")
-            report.append("   * Bom desempenho academico")
+            report.append("INTERPRETAÇÃO: Proficiência ALTA")
+            report.append("   * Bom desempenho acadêmico")
             report.append("   * Pode atuar como tutor de colegas")
-            report.append("   * Sugestao: Desafios adicionais e aprofundamento")
+            report.append("   * Sugestão: Desafios adicionais e aprofundamento")
         else:
-            report.append("INTERPRETACAO: Proficiencia MUITO ALTA")
+            report.append("INTERPRETAÇÃO: Proficiência MUITO ALTA")
             report.append("   * Excelente desempenho")
             report.append("   * Recomenda-se atividades desafiadoras")
-            report.append("   * Sugestao: Atuar como tutor principal em grupos de estudo")
+            report.append("   * Sugestão: Atuar como tutor principal em grupos de estudo")
         report.append("")
     
-    report.append("ANALISE DAS QUESTOES")
+    report.append("ANÁLISE DAS QUESTÕES")
     report.append("-" * 40)
     
-    # Questoes problematicas
+    # Questões problemáticas
     problematic_items = item_results[
         (item_results['Discriminacao (a)'] < 0.3) | 
         (item_results['Correlacao Bisserial'] < 0.1) |
@@ -742,34 +1148,34 @@ def create_text_report(student_results, item_results, detailed_df, aluno_selecio
     ]
     
     if len(problematic_items) > 0:
-        report.append(f"Questoes que requerem atencao ({len(problematic_items)}):")
+        report.append(f"Questões que requerem atenção ({len(problematic_items)}):")
         for _, item in problematic_items.iterrows():
             issues = []
             if item['Discriminacao (a)'] < 0.3:
-                issues.append("baixa discriminacao")
+                issues.append("baixa discriminação")
             if item['Correlacao Bisserial'] < 0.1:
-                issues.append("baixa correlacao")
+                issues.append("baixa correlação")
             if item['% Acerto'] < 20:
-                issues.append("muito dificil")
+                issues.append("muito difícil")
             if item['% Acerto'] > 90:
-                issues.append("muito facil")
+                issues.append("muito fácil")
             
             report.append(f"   * {item['Questao']}: {', '.join(issues)} (Dificuldade: {item['Dificuldade (b)']:.2f}, Acerto: {item['% Acerto']:.1f}%)")
     else:
-        report.append("Todas as questoes apresentam caracteristicas adequadas.")
+        report.append("Todas as questões apresentam características adequadas.")
     
     report.append("")
-    report.append("RECOMENDACOES PEDAGOGICAS")
+    report.append("RECOMENDAÇÕES PEDAGÓGICAS")
     report.append("-" * 40)
     recommendations = [
-        "1. Revise questoes com discriminacao abaixo de 0.3",
-        "2. Considere reformular questoes muito faceis (>90%) ou dificeis (<20%)",
-        "3. Use questoes com alta discriminacao (>0.6) em futuras avaliacoes",
+        "1. Revise questões com discriminação abaixo de 0.3",
+        "2. Considere reformular questões muito fáceis (>90%) ou difíceis (<20%)",
+        "3. Use questões com alta discriminação (>0.6) em futuras avaliações",
         "4. Organize grupos de tutoria com os 10 melhores alunos identificados",
-        "5. Planeje atividades de reforco para alunos com θ < -0.5",
+        "5. Planeje atividades de reforço para alunos com θ < -0.5",
         "6. Proponha desafios adicionais para alunos com θ > 1.0",
-        "7. Implemente monitoramento continuo com relatorios mensais",
-        "8. Use os dados para personalizacao do ensino"
+        "7. Implemente monitoramento contínuo com relatórios mensais",
+        "8. Use os dados para personalização do ensino"
     ]
     
     for rec in recommendations:
@@ -777,65 +1183,65 @@ def create_text_report(student_results, item_results, detailed_df, aluno_selecio
     
     report.append("")
     report.append("=" * 70)
-    report.append("Fim do relatorio")
+    report.append("Fim do relatório")
     report.append("=" * 70)
     
     return "\n".join(report)
 
-# --- Funcao para criar relatorio CSV formatado ---
+# --- Função para criar relatório CSV formatado ---
 def create_csv_report(student_results, item_results, detailed_df, aluno_selecionado=None):
-    """Cria um relatorio formatado em CSV com multiplas secoes"""
+    """Cria um relatório formatado em CSV com múltiplas seções"""
     
     # Criar buffer para o CSV
     buffer = io.StringIO()
     
-    # Secao 1: Metadados
+    # Seção 1: Metadados
     buffer.write("=== METADADOS ===\n")
-    buffer.write("Metrica,Valor\n")
-    buffer.write(f"Data de geracao,{datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n")
+    buffer.write("Métrica,Valor\n")
+    buffer.write(f"Data de geração,{datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n")
     buffer.write(f"Total de alunos,{len(student_results)}\n")
-    buffer.write(f"Total de questoes,{len(item_results)}\n")
-    buffer.write(f"Proficiencia media,{student_results['Proficiencia (θ)'].mean():.3f}\n")
-    buffer.write(f"Desvio padrao da proficiencia,{student_results['Proficiencia (θ)'].std():.3f}\n")
-    buffer.write(f"Dificuldade media das questoes,{item_results['Dificuldade (b)'].mean():.3f}\n")
-    buffer.write(f"Taxa media de acerto,{student_results['Percentual de Acerto'].mean():.1f}%\n")
+    buffer.write(f"Total de questões,{len(item_results)}\n")
+    buffer.write(f"Proficiência média,{student_results['Proficiencia (θ)'].mean():.3f}\n")
+    buffer.write(f"Desvio padrão da proficiência,{student_results['Proficiencia (θ)'].std():.3f}\n")
+    buffer.write(f"Dificuldade média das questões,{item_results['Dificuldade (b)'].mean():.3f}\n")
+    buffer.write(f"Taxa média de acerto,{student_results['Percentual de Acerto'].mean():.1f}%\n")
     buffer.write(f"Confiabilidade,{calculate_reliability(item_results):.3f}\n")
     buffer.write("\n")
     
-    # Secao 2: Explicacao dos parametros TRI
-    buffer.write("=== EXPLICACAO DOS PARAMETROS TRI ===\n")
-    buffer.write("Parametro,Descricao,Interpretacao\n")
-    buffer.write('Dificuldade (b),"Mede o nivel de dificuldade da questao",')
-    buffer.write('"Negativo: facil; Proximo a 0: media; Positivo: dificil"\n')
-    buffer.write('Discriminacao (a),"Capacidade de diferenciar alunos",')
+    # Seção 2: Explicação dos parâmetros TRI
+    buffer.write("=== EXPLICAÇÃO DOS PARÂMETROS TRI ===\n")
+    buffer.write("Parâmetro,Descrição,Interpretação\n")
+    buffer.write('Dificuldade (b),"Mede o nível de dificuldade da questão",')
+    buffer.write('"Negativo: fácil; Próximo a 0: média; Positivo: difícil"\n')
+    buffer.write('Discriminação (a),"Capacidade de diferenciar alunos",')
     buffer.write('"<0.3: baixa; 0.3-0.6: moderada; >0.6: alta; Negativo: problema grave"\n')
-    buffer.write('Proficiencia (θ),"Habilidade do aluno na escala TRI",')
-    buffer.write('"<-1.5: muito baixa; -1.5 a -0.5: baixa; -0.5 a 0.5: media; 0.5 a 1.5: alta; >1.5: muito alta"\n')
+    buffer.write('Proficiência (θ),"Habilidade do aluno na escala TRI",')
+    buffer.write('"<-1.5: muito baixa; -1.5 a -0.5: baixa; -0.5 a 0.5: média; 0.5 a 1.5: alta; >1.5: muito alta"\n')
     buffer.write("\n")
     
-    # Secao 3: Top 10 Tutores
+    # Seção 3: Top 10 Tutores
     top_tutors = get_top_tutors(student_results, 10)
     if len(top_tutors) > 0:
         buffer.write("=== TOP 10 TUTORES DE COLEGAS ===\n")
-        buffer.write("Posicao,Aluno,Proficiencia (θ),% Acerto,Score Tutor,Sugestao\n")
+        buffer.write("Posição,Aluno,Proficiência (θ),% Acerto,Score Tutor,Sugestão\n")
         for idx, row in top_tutors.iterrows():
             sugestao = f"Tutor para {min(3, len(student_results)//10)} alunos"
             buffer.write(f"{row['Posicao']},{row['Aluno']},{row['Proficiencia (θ)']:.3f},{row['Percentual de Acerto']:.1f}%,{row['Score_Tutor']:.3f},{sugestao}\n")
         buffer.write("\n")
     
-    # Secao 4: Ranking de Alunos
+    # Seção 4: Ranking de Alunos
     buffer.write("=== RANKING DE ALUNOS ===\n")
     ranking_df = student_results.sort_values('Proficiencia (θ)', ascending=False)
     ranking_df['Posicao'] = range(1, len(ranking_df) + 1)
     ranking_df[['Posicao', 'Aluno', 'Proficiencia (θ)', 'Percentual de Acerto', 'Pontuacao Total']].to_csv(buffer, index=False)
     buffer.write("\n")
     
-    # Secao 5: Analise de Questoes
-    buffer.write("=== ANALISE DE QUESTOES ===\n")
+    # Seção 5: Análise de Questões
+    buffer.write("=== ANÁLISE DE QUESTÕES ===\n")
     item_results[['Questao', 'Dificuldade (b)', 'Discriminacao (a)', '% Acerto', 'Correlacao Bisserial']].to_csv(buffer, index=False)
     buffer.write("\n")
     
-    # Secao 6: Questoes Problematicas
+    # Seção 6: Questões Problemáticas
     problematic_items = item_results[
         (item_results['Discriminacao (a)'] < 0.3) | 
         (item_results['Correlacao Bisserial'] < 0.1) |
@@ -844,89 +1250,89 @@ def create_csv_report(student_results, item_results, detailed_df, aluno_selecion
     ]
     
     if len(problematic_items) > 0:
-        buffer.write("=== QUESTOES PROBLEMATICAS ===\n")
-        buffer.write("Questao,Problemas,Dificuldade,Discriminacao,% Acerto,Acão Recomendada\n")
+        buffer.write("=== QUESTÕES PROBLEMÁTICAS ===\n")
+        buffer.write("Questão,Problemas,Dificuldade,Discriminação,% Acerto,Ação Recomendada\n")
         for _, item in problematic_items.iterrows():
             issues = []
             if item['Discriminacao (a)'] < 0.3:
-                issues.append("Baixa discriminacao")
+                issues.append("Baixa discriminação")
             if item['Correlacao Bisserial'] < 0.1:
-                issues.append("Baixa correlacao")
+                issues.append("Baixa correlação")
             if item['% Acerto'] < 20:
-                issues.append("Muito dificil")
+                issues.append("Muito difícil")
             if item['% Acerto'] > 90:
-                issues.append("Muito facil")
+                issues.append("Muito fácil")
             
-            acao = "Revisar questao" if len(issues) > 0 else "Manter"
+            acao = "Revisar questão" if len(issues) > 0 else "Manter"
             buffer.write(f"{item['Questao']},{';'.join(issues)},{item['Dificuldade (b)']:.3f},{item['Discriminacao (a)']:.3f},{item['% Acerto']:.1f}%,{acao}\n")
         buffer.write("\n")
     
-    # Secao 7: Analise Individual (se aluno selecionado)
+    # Seção 7: Análise Individual (se aluno selecionado)
     if aluno_selecionado:
         aluno_data = student_results[student_results['Aluno'] == aluno_selecionado].iloc[0]
         rank = list(student_results.sort_values('Proficiencia (θ)', ascending=False)['Aluno']).index(aluno_selecionado) + 1
         
-        buffer.write(f"=== ANALISE INDIVIDUAL: {aluno_selecionado} ===\n")
-        buffer.write("Metrica,Valor\n")
-        buffer.write(f"Proficiencia (θ),{aluno_data['Proficiencia (θ)']:.3f}\n")
-        buffer.write(f"Pontuacao,{int(aluno_data['Pontuacao Total'])}/{len(item_results)}\n")
+        buffer.write(f"=== ANÁLISE INDIVIDUAL: {aluno_selecionado} ===\n")
+        buffer.write("Métrica,Valor\n")
+        buffer.write(f"Proficiência (θ),{aluno_data['Proficiencia (θ)']:.3f}\n")
+        buffer.write(f"Pontuação,{int(aluno_data['Pontuacao Total'])}/{len(item_results)}\n")
         buffer.write(f"Percentual de acerto,{aluno_data['Percentual de Acerto']:.1f}%\n")
-        buffer.write(f"Posicao no ranking,{rank}º de {len(student_results)}\n")
+        buffer.write(f"Posição no ranking,{rank}º de {len(student_results)}\n")
         
-        # Verificar se e tutor
+        # Verificar se é tutor
         if aluno_selecionado in top_tutors['Aluno'].values:
             tutor_info = top_tutors[top_tutors['Aluno'] == aluno_selecionado].iloc[0]
-            buffer.write(f"E tutor potencial?,Sim\n")
+            buffer.write(f"É tutor potencial?,Sim\n")
             buffer.write(f"Score como tutor,{tutor_info['Score_Tutor']:.3f}\n")
-            buffer.write(f"Posicao entre tutores,{tutor_info['Posicao']}º\n")
+            buffer.write(f"Posição entre tutores,{tutor_info['Posicao']}º\n")
         else:
-            buffer.write(f"E tutor potencial?,Nao\n")
+            buffer.write(f"É tutor potencial?,Não\n")
         
         buffer.write("\n")
         
-        # Interpretacao da proficiencia
+        # Interpretação da proficiência
         theta = aluno_data['Proficiencia (θ)']
-        buffer.write("=== INTERPRETACAO DA PROFICIENCIA ===\n")
+        buffer.write("=== INTERPRETAÇÃO DA PROFICIÊNCIA ===\n")
         if theta < -1.5:
-            buffer.write("Classificacao,MUITO BAIXA\n")
-            buffer.write("Recomendacao,Intervencao pedagogica imediata\n")
-            buffer.write("Sugestao,Acompanhamento individual com tutor\n")
+            buffer.write("Classificação,MUITO BAIXA\n")
+            buffer.write("Recomendação,Intervenção pedagógica imediata\n")
+            buffer.write("Sugestão,Acompanhamento individual com tutor\n")
         elif theta < -0.5:
-            buffer.write("Classificacao,BAIXA\n")
-            buffer.write("Recomendacao,Reforco escolar\n")
-            buffer.write("Sugestao,Participar de grupos de estudo\n")
+            buffer.write("Classificação,BAIXA\n")
+            buffer.write("Recomendação,Reforço escolar\n")
+            buffer.write("Sugestão,Participar de grupos de estudo\n")
         elif theta < 0.5:
-            buffer.write("Classificacao,MEDIA\n")
-            buffer.write("Recomendacao,Manter ritmo atual\n")
-            buffer.write("Sugestao,Praticar questoes dificeis\n")
+            buffer.write("Classificação,MÉDIA\n")
+            buffer.write("Recomendação,Manter ritmo atual\n")
+            buffer.write("Sugestão,Praticar questões difíceis\n")
         elif theta < 1.5:
-            buffer.write("Classificacao,ALTA\n")
-            buffer.write("Recomendacao,Atuar como tutor\n")
-            buffer.write("Sugestao,Desafios adicionais\n")
+            buffer.write("Classificação,ALTA\n")
+            buffer.write("Recomendação,Atuar como tutor\n")
+            buffer.write("Sugestão,Desafios adicionais\n")
         else:
-            buffer.write("Classificacao,MUITO ALTA\n")
-            buffer.write("Recomendacao,Tutor principal\n")
-            buffer.write("Sugestao,Atividades avancadas\n")
+            buffer.write("Classificação,MUITO ALTA\n")
+            buffer.write("Recomendação,Tutor principal\n")
+            buffer.write("Sugestão,Atividades avançadas\n")
         buffer.write("\n")
         
-        # Detalhamento por questao do aluno
+        # Detalhamento por questão do aluno
         aluno_detailed = detailed_df[detailed_df['Aluno'] == aluno_selecionado]
-        buffer.write("=== DETALHAMENTO POR QUESTAO ===\n")
+        buffer.write("=== DETALHAMENTO POR QUESTÃO ===\n")
         aluno_detailed[['Questao', 'Resposta_Aluno', 'Resposta_Correta', 'Acerto', 'Dificuldade_Questao']].to_csv(buffer, index=False)
     
     return buffer.getvalue()
 
-# --- Funcao para exportar Excel (com fallback se openpyxl nao disponivel) ---
+# --- Função para exportar Excel (com fallback se openpyxl não disponível) ---
 def export_to_excel(df_binary, student_results, item_results, detailed_df):
-    """Exporta dados para Excel com fallback para CSV se openpyxl nao estiver disponivel"""
+    """Exporta dados para Excel com fallback para CSV se openpyxl não estiver disponível"""
     
     if OPENPYXL_AVAILABLE:
         try:
             excel_buffer = io.BytesIO()
             with pd.ExcelWriter(excel_buffer, engine='openpyxl') as writer:
-                df_binary.to_excel(writer, sheet_name='Respostas Binarias', index=False)
+                df_binary.to_excel(writer, sheet_name='Respostas Binárias', index=False)
                 student_results.to_excel(writer, sheet_name='Resultados Alunos', index=False)
-                item_results.to_excel(writer, sheet_name='Analise Questoes', index=False)
+                item_results.to_excel(writer, sheet_name='Análise Questões', index=False)
                 detailed_df.to_excel(writer, sheet_name='Detalhado', index=False)
                 
                 # Adicionar aba de tutores
@@ -940,7 +1346,7 @@ def export_to_excel(df_binary, student_results, item_results, detailed_df):
             # Fallback para CSV
             return None, None
     else:
-        # Criar um arquivo ZIP com multiplos CSVs
+        # Criar um arquivo ZIP com múltiplos CSVs
         zip_buffer = io.BytesIO()
         with zipfile.ZipFile(zip_buffer, 'w') as zip_file:
             # Adicionar cada dataframe como CSV separado
@@ -1003,7 +1409,7 @@ def create_logo_html():
 st.markdown('<h1 class="main-header"> KAIROS - Sistema de Análise de Avaliações</h1>', unsafe_allow_html=True)
 st.markdown('<p style="text-align: center; font-size: 1.2rem; color: #94A3B8; font-weight: 500;">Análise psicométrica avançada para educadores</p>', unsafe_allow_html=True)
 
-# --- Sidebar com Configuracoes ---
+# --- Sidebar com Configurações ---
 with st.sidebar:
     # Logo KAIROS elegante
     st.markdown(create_logo_html(), unsafe_allow_html=True)
@@ -1013,11 +1419,11 @@ with st.sidebar:
     1. **📝 Configure o gabarito** abaixo
     2. **👥 Adicione os alunos** (manual ou CSV)
     3. **📊 Analise os resultados** automaticamente
-    4. **📄 Exporte relatórios** em TXT e CSV
+    4. **📄 Exporte relatórios** em TXT, CSV e HTML
     5. **👨‍🏫 Identifique tutores** para grupos de estudo
     """)
     
-    # Avisos sobre dependencias
+    # Avisos sobre dependências
     if not OPENPYXL_AVAILABLE:
         st.warning("""
         ⚠️ **Módulo openpyxl não instalado**
@@ -1153,7 +1559,7 @@ if gabarito and num_questoes > 0:
                                 resposta_key = f"aluno_{aluno_idx}_q_{q_idx}"
                                 resposta = st.selectbox(
                                     f"**Q{questao_num}**",
-                                    options=["-", "A", "B", "C", "D", "E"],
+                                    options=["-", "A", "B", "C", "D", "E"],  # CORRIGIDO: de "UM" para "A"
                                     index=0,
                                     key=resposta_key
                                 )
@@ -1527,10 +1933,10 @@ if gabarito and num_questoes > 0:
                     type="primary"
                 )
                 
-                # Visualização gráfica alternativa (sem usar Score_Tutor no size)
+                # Visualização gráfica alternativa
                 st.markdown("### 📈 **Distribuição dos Potenciais Tutores**")
                 
-                # Criar gráfico de barras em vez de scatter com size
+                # Criar gráfico de barras
                 fig_tutors = px.bar(
                     top_tutors,
                     x='Aluno',
@@ -1638,6 +2044,31 @@ if gabarito and num_questoes > 0:
                         except Exception as e:
                             st.error(f"❌ **Erro ao gerar relatório CSV:** {str(e)}")
                 
+                # Botão para gerar relatório HTML (NOVO)
+                if st.button("🌐 **Gerar Relatório (HTML)**", type="primary", use_container_width=True):
+                    with st.spinner("🎨 Gerando relatório HTML..."):
+                        try:
+                            if report_type == "📋 **Relatório Geral da Turma**":
+                                html_report = create_html_report(student_results, item_results, detailed_df)
+                                filename = f"Relatorio_Turma_TRI_{datetime.now().strftime('%Y%m%d_%H%M')}.html"
+                            else:
+                                html_report = create_html_report(student_results, item_results, detailed_df, aluno_relatorio)
+                                filename = f"Relatorio_{aluno_relatorio}_{datetime.now().strftime('%Y%m%d_%H%M')}.html"
+                            
+                            # Botão de download HTML
+                            st.download_button(
+                                label="⬇️ **Baixar Relatório HTML**",
+                                data=html_report,
+                                file_name=filename,
+                                mime="text/html",
+                                type="primary"
+                            )
+                            
+                            st.success("✅ **Relatório HTML gerado com sucesso!**")
+                            st.info("🌐 **Dica:** O relatório HTML pode ser aberto em qualquer navegador e compartilhado com a equipe pedagógica.")
+                        except Exception as e:
+                            st.error(f"❌ **Erro ao gerar relatório HTML:** {str(e)}")
+                
                 # Exportar dados completos
                 st.markdown("### 💾 **Exportar Dados Completos**")
                 
@@ -1725,6 +2156,11 @@ if gabarito and num_questoes > 0:
                 - Ideal para análise em planilhas
                 - Múltiplas seções organizadas
                 
+                **🌐 HTML (NOVO):**
+                - Relatório completo em formato web
+                - Visualização elegante em navegadores
+                - Ideal para compartilhar com equipe pedagógica
+                
                 **📗 Excel/ZIP:**
                 - Múltiplas abas/arquivos
                 - Dados completos organizados
@@ -1785,14 +2221,14 @@ else:
             <small style="color: #94A3B8;">Identifica os 10 melhores alunos para tutoria</small>
         </div>
         <div style="background: rgba(51, 65, 85, 0.8); padding: 1rem; border-radius: 8px; border: 1px solid rgba(139, 92, 246, 0.3);">
-            <span style="font-size: 1.5em; color: #8B5CF6;">📝</span><br>
-            <strong style="color: #F1F5F9;">Relatórios TXT/CSV</strong><br>
-            <small style="color: #94A3B8;">Exportação completa e confiável</small>
+            <span style="font-size: 1.5em; color: #8B5CF6;">🌐</span><br>
+            <strong style="color: #F1F5F9;">Relatórios HTML</strong><br>
+            <small style="color: #94A3B8;">Exportação web para equipe pedagógica</small>
         </div>
         <div style="background: rgba(51, 65, 85, 0.8); padding: 1rem; border-radius: 8px; border: 1px solid rgba(139, 92, 246, 0.3);">
             <span style="font-size: 1.5em; color: #8B5CF6;">💾</span><br>
             <strong style="color: #F1F5F9;">Múltiplos Formatos</strong><br>
-            <small style="color: #94A3B8;">CSV, Excel, JSON, ZIP</small>
+            <small style="color: #94A3B8;">CSV, Excel, JSON, ZIP, HTML</small>
         </div>
     </div>
     </div>
@@ -1804,7 +2240,7 @@ else:
         <li>Adicione os alunos (manual ou CSV)</li>
         <li>Analise o panorama geral da turma</li>
         <li>Identifique os melhores tutores</li>
-        <li>Exporte relatórios completos em TXT/CSV</li>
+        <li>Exporte relatórios completos em TXT/CSV/HTML</li>
     </ol>
     </div>
     </div>
