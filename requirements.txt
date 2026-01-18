@@ -1,71 +1,70 @@
 # Core dependencies
-streamlit==1.31.0
-pandas==2.2.0
-numpy==1.24.4
+streamlit
+pandas
+numpy
 
 # Visualization
-plotly==5.18.0
-matplotlib==3.8.2
-seaborn==0.13.2
+plotly
+matplotlib
+seaborn
 
 # Network analysis
-networkx==3.2.1
-scipy==1.12.0
+networkx
+scipy
 
 # Machine learning & similarity
-scikit-learn==1.4.0
+scikit-learn
 
 # Image processing
-Pillow==10.2.0
-opencv-python-headless==4.9.0.80
+Pillow
+opencv-python-headless
 
 # Data processing
-openpyxl==3.1.2
-xlrd==2.0.1
+openpyxl
+xlrd
 
 # Utilities
-python-dotenv==1.0.0
-tqdm==4.66.2
-joblib==1.3.2
+python-dotenv
+tqdm
+joblib
 
 # NetworkX community detection (optional but recommended)
-python-louvain==0.16
+python-louvain6
 
 # Alternative community detection
-cdlib==0.3.1
+cdlib
 
 # For exporting to Excel with formatting
 xlsxwriter==3.1.9
 
 # For PDF generation (optional)
-reportlab==4.0.7
-fpdf2==2.7.7
+reportlab
+fpdf2
 
 # For progress bars in Streamlit
-streamlit-extras==0.4.0
+streamlit-extras
 
 # For caching and performance
-cachetools==5.3.2
+cachetools
 
 # For date/time handling
-python-dateutil==2.8.2
-pytz==2023.3.post1
+python-dateutil
+pytz
 
 # For data validation
-pydantic==2.5.3
-
+pydantic
 # For colored terminal output (logs)
-colorama==0.4.6
+colorama
 
 # For typing support
-typing-extensions==4.9.0
+typing-extensions
 
 # For HTTP requests (if needed for APIs)
-requests==2.31.0
+requests
 
 # For async operations
-aiohttp==3.9.1
-asyncio==3.4.3
+aiohttp
+asyncio
 
 # For data compression
-zstandard==0.22.0
+zstandard
