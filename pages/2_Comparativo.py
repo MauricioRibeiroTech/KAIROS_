@@ -95,7 +95,7 @@ def gerar_relatorio_html_geral(df_evolucao, media_mat, media_port, media_geral, 
                 <br><br>
                 ____________________________________________________<br>
                 Prof. Maurício Aparecido Ribeiro<br>
-                Inteligência de Dados e Gestão Pedagógica
+                Análise de Dados Educacionais
             </div>
 
             <div class="footer">
