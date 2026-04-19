@@ -1,22 +1,14 @@
-# Essenciais para o KAIROS
+# --- Framework de Interface ---
 streamlit
+
+# --- Processamento de Dados e Cálculo Científico ---
 pandas
-numpy>=1.26.0
+numpy
 scipy
+
+# --- Visualização de Dados Interativa ---
 plotly
 
-# Visualização e Estilo
-matplotlib
-seaborn
-Pillow
-
-# Análise de Grafos e Similaridade
-networkx
-scikit-learn
-
-# Processamento de Dados (Excel e PDF)
-openpyxl
-xlsxwriter
-
-# Utilidades
-python-dotenv
+# --- Exportação e Utilitários ---
+jinja2
+datetime
